@@ -6,7 +6,7 @@ import axios from 'axios';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 
-function ModalMovie({targetMovie,handleClose,handleShow,show}) {
+function ModalMovie({targetMovie,handleClose,handleShow,show,handleUpdate}) {
 const [inputValue,setInputValue]=useState("")
 function handleAddToDatabase(){
   handleClose();
@@ -14,7 +14,7 @@ function handleAddToDatabase(){
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
   };
-  console.log(inputValue)
+
   return (
     <div
       className="modal show"
@@ -23,29 +23,21 @@ function handleAddToDatabase(){
    
    <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{targetMovie.title}</Modal.Title>
+          Update your Comments
         </Modal.Header>
         <Modal.Body>
-          {targetMovie.overview}
+        <Form onSubmit={(e)=>handleUpdate(e,targetMovie)}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Comments</Form.Label>
+        <Form.Control type="text" placeholder="new Comment" />
+      </Form.Group>
+      <Button variant="primary" type="submit" >
+        Submit
+      </Button>
+    </Form>
         </Modal.Body>
-        <InputGroup className="mb-3">
-        <InputGroup.Text id="inputGroup-sizing-default"value={(e)=>setInputValue(e.target.value)}
->
-         Comment
-        </InputGroup.Text>
-        <Form.Control
-          aria-label="Comment"
-          aria-describedby="inputGroup-sizing-default"
-        />
-      </InputGroup> 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={()=>handleAddToDatabase()}>
-            Add to database
-          </Button>
-        </Modal.Footer>
+     
+ 
       </Modal>
     </div>
   );
