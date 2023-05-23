@@ -10,7 +10,7 @@ const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 function getMovies(){
-axios.get(`${process.env.REACT_APP_URL}/movies`)
+axios.get(`${process.env.REACT_APP_DATABASE}/movies`)
 .then(res=>{setMovies(res.data); console.log(res)})
 .catch(err=>console.log(err));
 }
@@ -20,7 +20,7 @@ useEffect(()=>{
 },[])
 function handleDelete(target){
   setTargetMovie(target);
-  axios.delete(`${process.env.REACT_APP_URL}/movies/${targetMovie.id}`)
+  axios.delete(`${process.env.REACT_APP_DATABASE}/movies/${targetMovie.id}`)
   .then(res=>console.log(res))
   .catch(err=>console.log(err))
   setMovies(movies.filter(e=>e.id!==target.id))
@@ -28,7 +28,7 @@ function handleDelete(target){
 function handleUpdate(e,target){
 setTargetMovie(target);
 
-axios.put(`${process.env.REACT_APP_URL}/movies/${targetMovie.id}`,e.target.comments)
+axios.put(`${process.env.REACT_APP_DATABASE}/movies/${targetMovie.id}`,e.target.comments)
 .then(res=>console.log(res))
 .catch(err=>console.log(err));
 
