@@ -6,7 +6,7 @@ import axios from 'axios';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 
-function ModalMovie({targetMovie,handleClose,handleShow,show}) {
+function ModalMovie({targetMovie,handleClose,handleShow,show,handleUpdate}) {
 const [inputValue,setInputValue]=useState("")
 function handleAddToDatabase(){
   let sentData={
