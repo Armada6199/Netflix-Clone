@@ -18,6 +18,7 @@ axios.get(`${process.env.REACT_APP_MYAPI}/trending`)
   useEffect(()=>{
     getTrending()
   },[])
+  
   return (
     <div className='flex flex-wrap justify-around items-center w-[100%] h-[100%]'>
       {trendingMovies.map(movie=><Movie movie={movie} setTargetMovie={setTargetMovie} setShow={setShow} key={movie.id}/>)}

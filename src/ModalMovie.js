@@ -6,21 +6,22 @@ import axios from 'axios';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 
-function ModalMovie({targetMovie,handleClose,handleShow,show,handleUpdate}) {
-const [inputValue,setInputValue]=useState("")
-function handleAddToDatabase(){
-  let sentData={
-    title:targetMovie.title,
-    comment:inputValue,
-    relase_date:targetMovie.release_date,
-    rating:Math.floor(targetMovie.vote_average)
-  }
+function ModalMovie({targetMovie,handleClose,handleShow,show,onFav}) {
+const [inputValue,setInputValue]=useState("");
+function handleAddToDatabase(e){
+  e.preventDefault();
   handleClose();
-    axios.post(`${process.env.REACT_APP_MYAPI}/movies`,sentData)
+    axios.post(`${process.env.REACT_APP_MYAPI}/movies`,targetMovie)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
   };
-
+  
+  function handleUpdate(e){
+    e.preventDefault()
+    axios.put(`${process.env.REACT_APP_MYAPI}/${targetMovie.id}`,e.target.comment)
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+  }
   return (
     <div
       className="modal show"
@@ -35,9 +36,32 @@ function handleAddToDatabase(){
         <Modal.Title>{targetMovie.title}</Modal.Title>
           {targetMovie.overview}
         </Modal.Body>
+        {onFav?
+             <Form onSubmit={(e)=>handleUpdate(e)}>
+             <InputGroup className="mb-3">
+             <InputGroup.Text id="inputGroup-sizing-default" onChange={(e)=>setInputValue(e.target.value)}
+                >
+              Comment
+             </InputGroup.Text>
+             <Form.Control
+               aria-label="Comment"
+               aria-describedby="inputGroup-sizing-default"
+             />
+           </InputGroup> 
+             <Modal.Footer>
+               <Button variant="secondary" onClick={handleClose}>
+                 Close
+               </Button>
+               <Button variant="primary" >
+                 Update Comment
+               </Button>
+             </Modal.Footer>
+             </Form>
+        :  
+        <Form onSubmit={(e)=>handleAddToDatabase(e)}>
         <InputGroup className="mb-3">
         <InputGroup.Text id="inputGroup-sizing-default" onChange={(e)=>setInputValue(e.target.value)}
->
+           >
          Comment
         </InputGroup.Text>
         <Form.Control
@@ -49,10 +73,13 @@ function handleAddToDatabase(){
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={()=>handleAddToDatabase()}>
-            Add to database
+          <Button variant="primary"type='submit' >
+            Add to Favorite list
           </Button>
         </Modal.Footer>
+        </Form>
+        }
+   
       </Modal>
     </div>
   );
