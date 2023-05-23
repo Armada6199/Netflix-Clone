@@ -11,8 +11,8 @@ function MovieList() {
   const handleShow = () => setShow(true);
     function getTrending(){
 axios.get(`${process.env.REACT_APP_MYAPI}/trending`)
-.then(res=>res.json)
-.then(data=>console.log(data))
+.then(res=>res.data)
+.then(data=>setTrendingMovies(data.results))
 .catch(err=>console.log(err));
   }
   useEffect(()=>{
@@ -20,7 +20,7 @@ axios.get(`${process.env.REACT_APP_MYAPI}/trending`)
   },[])
   return (
     <div className='flex flex-wrap justify-around items-center w-[100%] h-[100%]'>
-      {/* {trendingMovies.map(movie=><Movie movie={movie} setTargetMovie={setTargetMovie} setShow={setShow} key={movie.id}/>)} */}
+      {trendingMovies.map(movie=><Movie movie={movie} setTargetMovie={setTargetMovie} setShow={setShow} key={movie.id}/>)}
             <ModalMovie handleClose={handleClose} handleShow={handleShow} show={show} targetMovie={targetMovie}/>
     </div>
   )

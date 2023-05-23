@@ -8,25 +8,17 @@ function handleShow(){
   setShow(true)
   setTargetMovie(movie)
 }
-  // const [images,setImages]=useState([]);
-  // useEffect(()=>{
-  //   axios.get(`${process.env.REACT_APP_URL}/movie/${movie.id}/images?api_key=${process.env.REACT_APP_KEY}`)
-  //   .then(res=>console.log(res))
-  //   .catch(err=>console.log(err));
-  // },[])
   return (
-    <div className=''>
-   <Col>
-    <Card className='' style={{ width: '18rem'}}>
-    <Card.Body>
-      <Card.Title>{movie.title}</Card.Title>
-      <Card.Text>
-       {movie.overview.slice(0,75)}
-      </Card.Text>
-      <Button variant="primary" onClick={()=>handleShow()}>Add to favorite</Button>
-    </Card.Body>
-  </Card>
-    </Col>
+    <div className='w-[430px] h-[700px] flex flex-col items-center justify-around my-5 bg-[#FFEECF] text-[#191D32]'>
+      <div className='h-[400px] w-[100%]'>
+      <img className='w-[100%] h-[100%] rounded-md' src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="" />
+      </div>
+      <div className='flex flex-col justify-around items-center h-[300px] px-5'>
+      <h1 className='text-xl font-bold  text-[#0e0e0e0]'>{movie.title}</h1>
+      <p className='text-lg font-light h-[100px] overflow-hidden'>{movie.overview}</p>
+      <button className='bg-[#191D32] text-[#FFEECF] w-[180px] h-[45px] rounded-md font-semibold text-lg' onClick={()=>handleShow()}> Add To Favorites</button>
+      </div>
+   
     </div>
  
 

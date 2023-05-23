@@ -16,7 +16,7 @@ function handleAddToDatabase(){
     rating:Math.floor(targetMovie.vote_average)
   }
   handleClose();
-    axios.post(`${process.env.REACT_APP_DATABASE}movies`,sentData)
+    axios.post(`${process.env.REACT_APP_MYAPI}/movies`,sentData)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
   };
