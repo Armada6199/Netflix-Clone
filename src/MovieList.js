@@ -5,6 +5,7 @@ import ModalMovie from './ModalMovie';
 import Row from 'react-bootstrap/Row';
 function MovieList() {
     const [trendingMovies,setTrendingMovies]=useState([]);
+    
   const [targetMovie,setTargetMovie]=useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
